@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Research Journal</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  @font-face {
+  font-family: "SuperstudioLL-Bold";
+  src: url("./fonts/SuperstudioLL-Bold.otf") format("truetype");
+}
+
+  :root {
+    --bg: #CCC;
+    --text: #111111;
+    --muted: #888888;
+    --border: #dddddd;
+    --accent: #111111;
+    --hover-bg: #f5f5f5;
+    --font-mono: "SuperstudioLL-Bold", monospace;
+    --font-sans: "SuperstudioLL-Bold", monospace;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* ── Header ── */
+  header {
+    border-bottom: 1px solid var(--border);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .site-title {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--text);
+  }
+
+  /* right-side controls cluster */
+  .header-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* shared small button style */
+  .hdr-btn {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    padding: 5px 10px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text);
+    cursor: pointer;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+    line-height: 1;
+  }
+
+  .hdr-btn:hover,
+  .hdr-btn.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+
+  /* view toggle: two buttons fused */
+  .view-toggle {
+    display: flex;
+    border: 1px solid var(--border);
+  }
+
+  .view-btn {
+    background: transparent;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1;
+  }
+
+  .view-btn.active {
+    background: var(--accent);
+    color: #fff;
+  }
+
+  /* divider between button groups */
+  .hdr-divider {
+    width: 1px;
+    height: 16px;
+    background: var(--border);
+  }
+
+  /* new entry button */
+  .new-btn {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    padding: 5px 12px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text);
+    cursor: pointer;
+    letter-spacing: 0.03em;
+  }
+
+  .new-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+  /* ── Tag panel (slides down under header) ── */
+  .tag-panel {
+    overflow: hidden;
+    max-height: 0;
+    border-bottom: 0px solid var(--border);
+    background: #fafafa;
+  }
+
+  .tag-panel.open {
+    max-height: 200px;
+    border-bottom-width: 1px;
+  }
+
+  .tag-panel-inner {
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .tag-panel-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-right: 4px;
+    white-space: nowrap;
+  }
+
+  .tag-chip {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    padding: 3px 10px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+  }
+
+  .tag-chip:hover,
+  .tag-chip.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+
+  /* ── Upload / Edit panel ── */
+  .upload-panel {
+    display: none;
+    background: #fafafa;
+    border-bottom: 1px solid var(--border);
+    padding: 20px 24px;
+  }
+
+  .upload-panel.open { display: block; }
+
+  .upload-panel h3 {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    font-weight: normal;
+    color: var(--muted);
+  }
+
+  .form-row { display: flex; gap: 12px; margin-bottom: 10px; flex-wrap: wrap; }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+    min-width: 160px;
+  }
+
+  .form-group label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .form-group input,
+  .form-group textarea {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    padding: 6px 8px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    color: var(--text);
+    outline: none;
+    resize: vertical;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus { border-color: var(--accent); }
+
+  .tag-hint {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .tag-hint em { font-style: normal; color: var(--accent); font-weight: bold; }
+
+  .live-tags {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    margin-top: 6px;
+    min-height: 16px;
+  }
+
+  .live-tag {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    padding: 1px 6px;
+  }
+
+  .drop-zone {
+    border: 1px dashed var(--border);
+    padding: 18px;
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--muted);
+    cursor: pointer;
+    background: var(--bg);
+    margin-bottom: 10px;
+  }
+
+  .drop-zone:hover,
+  .drop-zone.over { border-color: var(--accent); color: var(--text); }
+
+  .drop-zone input[type="file"] { display: none; }
+
+  .preview-strip { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+
+  .preview-strip img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border: 1px solid var(--border);
+  }
+
+  .form-actions { display: flex; gap: 8px; }
+
+  .btn-primary {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    padding: 6px 16px;
+    background: var(--accent);
+    color: #fff;
+    border: 1px solid var(--accent);
+    cursor: pointer;
+  }
+
+  .btn-cancel {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    padding: 6px 16px;
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    cursor: pointer;
+  }
+
+  .btn-cancel:hover { color: var(--text); border-color: var(--text); }
+
+  /* ── Sub-toolbar (count only) ── */
+  .sub-toolbar {
+    border-bottom: 1px solid var(--border);
+    padding: 8px 24px;
+  }
+
+  .count {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  /* ── Main ── */
+  main { padding: 0 24px 48px; }
+
+  /* ── List View ── */
+  .archive-list { display: none; }
+  .archive-list.active { display: block; }
+
+  .list-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: start;
+    gap: 16px;
+    padding: 13px 0;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    color: inherit;
+  }
+
+  .list-item:hover {
+    background: var(--hover-bg);
+    margin: 0 -24px;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  .list-title { font-size: 15px; font-weight: normal; margin-bottom: 3px; }
+
+  .list-excerpt {
+    font-size: 13px;
+    color: var(--muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .list-date {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+    white-space: nowrap;
+    margin-top: 2px;
+  }
+
+  /* ── Grid View ── */
+  .archive-grid { display: none; }
+
+  .archive-grid.active {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+
+  .grid-item { background: var(--bg); cursor: pointer; color: inherit; display: block; }
+  .grid-item:hover .grid-img-wrap { opacity: 0.85; }
+  .grid-item:hover .grid-title { text-decoration: underline; }
+
+  .grid-img-wrap {
+    width: 100%;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    background: #eeeeee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .grid-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .grid-img-wrap.no-img {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: #cccccc;
+  }
+
+  .grid-info { padding: 10px 12px; border-top: 1px solid var(--border); }
+
+  .grid-title {
+    font-size: 13px;
+    font-weight: normal;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .grid-date { font-family: var(--font-mono); font-size: 10px; color: var(--muted); margin-top: 3px; }
+
+  /* ── Empty ── */
+  .empty {
+    padding: 48px 0;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--muted);
+    text-align: center;
+  }
+
+  /* ── Modal ── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 100;
+    overflow-y: auto;
+  }
+
+  .modal-overlay.open {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 40px 16px;
+  }
+
+  .modal {
+    background: var(--bg);
+    width: 100%;
+    max-width: 680px;
+    border: 1px solid var(--border);
+  }
+
+  .modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 13px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .modal-actions { display: flex; gap: 6px; align-items: center; }
+
+  .btn-edit, .btn-delete {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    padding: 4px 10px;
+    border: 1px solid var(--border);
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .btn-edit { color: var(--text); }
+  .btn-edit:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .btn-delete { color: #cc0000; border-color: #cc0000; }
+  .btn-delete:hover { background: #cc0000; color: #fff; }
+
+  .modal-sep { width: 1px; height: 14px; background: var(--border); }
+
+  .modal-close {
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: var(--muted);
+    line-height: 1;
+    padding: 2px 4px;
+  }
+
+  .modal-close:hover { color: var(--text); }
+
+  .modal-img {
+    width: 100%;
+    max-height: 400px;
+    object-fit: contain;
+    display: block;
+    background: #f5f5f5;
+  }
+
+  .modal-body { padding: 20px; }
+  .modal-title { font-size: 18px; margin-bottom: 8px; font-weight: normal; }
+
+  .modal-meta {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 16px;
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .modal-text {
+    font-size: 14px;
+    line-height: 1.78;
+    color: #222;
+    white-space: pre-wrap;
+  }
+
+  .modal-text .ht { color: var(--accent); font-weight: bold; }
+
+  @media (max-width: 600px) {
+    header { padding: 12px 16px; }
+    .sub-toolbar { padding: 8px 16px; }
+    main { padding: 0 16px 48px; }
+    .upload-panel { padding: 16px; }
+    .list-item { grid-template-columns: 1fr; }
+    .list-date { display: none; }
+    .archive-grid.active { grid-template-columns: repeat(2, 1fr); }
+    .tag-panel-inner { padding: 12px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── Header ── -->
+<header>
+  <a class="site-title" href="#">Research Journal</a>
+
+  <div class="header-controls">
+    <!-- Tag filter toggle -->
+    <button class="hdr-btn" id="btnTags">Tags</button>
+
+    <div class="hdr-divider"></div>
+
+    <!-- View toggle -->
+    <div class="view-toggle">
+      <button class="view-btn active" id="btnList" title="List">☰</button>
+      <button class="view-btn" id="btnGrid" title="Thumbnail">⊞</button>
+    </div>
+
+    <div class="hdr-divider"></div>
+
+    <!-- New entry -->
+    <button class="new-btn" id="toggleUpload">+ New</button>
+  </div>
+</header>
+
+<!-- ── Tag panel (expands below header) ── -->
+<div class="tag-panel" id="tagPanel">
+  <div class="tag-panel-inner" id="tagPanelInner">
+    <span class="tag-panel-label">Filter by tag</span>
+    <!-- populated by JS -->
+  </div>
+</div>
+
+<!-- ── New / Edit panel ── -->
+<div class="upload-panel" id="uploadPanel">
+  <h3 id="panelHeading">New Entry</h3>
+  <div class="form-row">
+    <div class="form-group" style="flex:2">
+      <label>Title *</label>
+      <input type="text" id="inTitle" placeholder="Entry title">
+    </div>
+    <div class="form-group">
+      <label>Date</label>
+      <input type="date" id="inDate">
+    </div>
+  </div>
+  <div class="form-group" style="margin-bottom:10px">
+    <label>Content</label>
+    <textarea id="inContent" rows="5" placeholder="Write your content here. Use #hashtags anywhere to create tags automatically."></textarea>
+    <div class="tag-hint">Use <em>#keyword</em> in your text to add tags — they update as you type.</div>
+    <div class="live-tags" id="liveTags"></div>
+  </div>
+  <div class="drop-zone" id="dropZone">
+    <label for="fileInput">Drag &amp; drop images here, or click to attach<br>
+      <span style="font-size:10px;margin-top:4px;display:block">JPG · PNG · GIF · WEBP</span>
+    </label>
+    <input type="file" id="fileInput" accept="image/*" multiple>
+  </div>
+  <div class="preview-strip" id="previewStrip"></div>
+  <div class="form-actions">
+    <button class="btn-primary" id="saveBtn">Save</button>
+    <button class="btn-cancel" id="cancelBtn">Cancel</button>
+  </div>
+</div>
+
+<!-- ── Count bar ── -->
+<div class="sub-toolbar">
+  <span class="count" id="countLabel">— entries</span>
+</div>
+
+<!-- ── Main content ── -->
+<main>
+  <div class="archive-list active" id="listView"></div>
+  <div class="archive-grid" id="gridView"></div>
+  <div class="empty" id="emptyMsg" style="display:none">No entries found.</div>
+</main>
+
+<!-- ── Modal ── -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-header">
+      <span id="modalHeaderDate" style="font-family:var(--font-mono);font-size:11px;color:var(--muted)"></span>
+      <div class="modal-actions">
+        <button class="btn-edit" id="modalEditBtn">Edit</button>
+        <button class="btn-delete" id="modalDeleteBtn">Delete</button>
+        <div class="modal-sep"></div>
+        <button class="modal-close" id="modalClose">✕</button>
+      </div>
+    </div>
+    <img class="modal-img" id="modalImg" src="" alt="" style="display:none">
+    <div class="modal-body">
+      <h2 class="modal-title" id="modalTitle"></h2>
+      <div class="modal-meta" id="modalMeta"></div>
+      <p class="modal-text" id="modalText"></p>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── Hashtag helpers ────────────────────────────────────
+function extractTags(text) {
+  const m = text.match(/#([a-zA-Z0-9_-]+)/g) || [];
+  return [...new Set(m.map(t => t.slice(1).toLowerCase()))];
+}
+
+function highlightHashtags(text) {
+  return text
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/#([a-zA-Z0-9_-]+)/g, '<span class="ht">#$1</span>');
+}
+
+// ── State ──────────────────────────────────────────────
+let items       = JSON.parse(localStorage.getItem('archive_v4') || 'null');
+let activeTag   = 'all';
+let editingId   = null;
+let currentModalId = null;
+let pendingImages  = [];
+let tagPanelOpen   = false;
+
+// ── Persist ────────────────────────────────────────────
+function save() { localStorage.setItem('archive_v4', JSON.stringify(items)); }
+
+// ── Helpers ────────────────────────────────────────────
+function fmtDate(iso) {
+  if (!iso) return '';
+  const [y,m,d] = iso.split('-');
+  return `${y}.${m}.${d}`;
+}
+
+function allTags() {
+  const s = new Set();
+  items.forEach(it => (it.tags||[]).forEach(t => s.add(t)));
+  return [...s].sort();
+}
+
+function filtered() {
+  return items
+    .filter(it => activeTag === 'all' || (it.tags||[]).includes(activeTag))
+    .sort((a,b) => (b.date||'').localeCompare(a.date||''));
+}
+
+// ── Render ─────────────────────────────────────────────
+function render() {
+  renderTagPanel();
+  const data = filtered();
+  const n = items.length;
+  document.getElementById('countLabel').textContent =
+    `${n} entr${n===1?'y':'ies'}${activeTag!=='all' ? ` — filtered by #${activeTag}` : ''}`;
+
+  const listEl  = document.getElementById('listView');
+  const gridEl  = document.getElementById('gridView');
+  const emptyEl = document.getElementById('emptyMsg');
+  listEl.innerHTML = '';
+  gridEl.innerHTML = '';
+
+  if (!data.length) { emptyEl.style.display='block'; return; }
+  emptyEl.style.display = 'none';
+
+  data.forEach(item => {
+    const src = item.images && item.images[0];
+
+    // — List row (no image, no tags) —
+    const li = document.createElement('div');
+    li.className = 'list-item';
+    li.onclick = () => openModal(item.id);
+    // strip hashtags from excerpt display
+    const excerptRaw = (item.content||'').replace(/\n/g,' ');
+    li.innerHTML = `
+      <div>
+        <div class="list-title">${item.title}</div>
+        <div class="list-excerpt">${excerptRaw}</div>
+      </div>
+      <div class="list-date">${fmtDate(item.date)}</div>
+    `;
+    listEl.appendChild(li);
+
+    // — Grid card (image + title + date, no tags) —
+    const gi = document.createElement('div');
+    gi.className = 'grid-item';
+    gi.onclick = () => openModal(item.id);
+    gi.innerHTML = `
+      ${src
+        ? `<div class="grid-img-wrap"><img src="${src}" alt=""></div>`
+        : `<div class="grid-img-wrap no-img">—</div>`}
+      <div class="grid-info">
+        <div class="grid-title">${item.title}</div>
+        <div class="grid-date">${fmtDate(item.date)}</div>
+      </div>
+    `;
+    gridEl.appendChild(gi);
+  });
+}
+
+// ── Tag panel ──────────────────────────────────────────
+function renderTagPanel() {
+  const inner = document.getElementById('tagPanelInner');
+  inner.innerHTML = '<span class="tag-panel-label">Filter by tag</span>';
+
+  // "All" chip
+  const allChip = document.createElement('button');
+  allChip.className = 'tag-chip' + (activeTag==='all'?' active':'');
+  allChip.textContent = 'All';
+  allChip.onclick = () => { activeTag='all'; render(); };
+  inner.appendChild(allChip);
+
+  allTags().forEach(t => {
+    const chip = document.createElement('button');
+    chip.className = 'tag-chip' + (activeTag===t?' active':'');
+    chip.textContent = t;
+    chip.onclick = () => { activeTag=t; render(); };
+    inner.appendChild(chip);
+  });
+}
+
+// ── Tag panel toggle ───────────────────────────────────
+document.getElementById('btnTags').onclick = () => {
+  tagPanelOpen = !tagPanelOpen;
+  document.getElementById('tagPanel').classList.toggle('open', tagPanelOpen);
+  document.getElementById('btnTags').classList.toggle('active', tagPanelOpen);
+};
+
+// ── View toggle ────────────────────────────────────────
+document.getElementById('btnList').onclick = () => {
+  document.getElementById('listView').classList.add('active');
+  document.getElementById('gridView').classList.remove('active');
+  document.getElementById('btnList').classList.add('active');
+  document.getElementById('btnGrid').classList.remove('active');
+};
+
+document.getElementById('btnGrid').onclick = () => {
+  document.getElementById('gridView').classList.add('active');
+  document.getElementById('listView').classList.remove('active');
+  document.getElementById('btnGrid').classList.add('active');
+  document.getElementById('btnList').classList.remove('active');
+};
+
+// ── Entry panel ────────────────────────────────────────
+document.getElementById('toggleUpload').onclick = () => {
+  document.getElementById('uploadPanel').classList.toggle('open');
+};
+
+document.getElementById('cancelBtn').onclick = closeUpload;
+
+function closeUpload() {
+  document.getElementById('uploadPanel').classList.remove('open');
+  document.getElementById('toggleUpload').textContent = '+ New';
+  document.getElementById('panelHeading').textContent = 'New Entry';
+  resetForm();
+}
+
+function resetForm() {
+  ['inTitle','inDate','inContent'].forEach(id => document.getElementById(id).value='');
+  document.getElementById('liveTags').innerHTML = '';
+  document.getElementById('previewStrip').innerHTML = '';
+  pendingImages = [];
+  editingId = null;
+}
+
+// ── Live tag preview ───────────────────────────────────
+document.getElementById('inContent').addEventListener('input', () => {
+  const tags = extractTags(document.getElementById('inContent').value);
+  document.getElementById('liveTags').innerHTML =
+    tags.map(t=>`<span class="live-tag">${t}</span>`).join('');
+});
+
+// ── Image drop / pick ──────────────────────────────────
+const dropZone = document.getElementById('dropZone');
+const fileInput = document.getElementById('fileInput');
+dropZone.onclick  = () => fileInput.click();
+dropZone.ondragover = e => { e.preventDefault(); dropZone.classList.add('over'); };
+dropZone.ondragleave = () => dropZone.classList.remove('over');
+dropZone.ondrop = e => {
+  e.preventDefault();
+  dropZone.classList.remove('over');
+  handleFiles(e.dataTransfer.files);
+};
+fileInput.onchange = () => handleFiles(fileInput.files);
+
+function handleFiles(files) {
+  [...files].forEach(f => {
+    if (!f.type.startsWith('image/')) return;
+    const r = new FileReader();
+    r.onload = e => { pendingImages.push({name:f.name, dataURL:e.target.result}); renderPreview(); };
+    r.readAsDataURL(f);
+  });
+}
+
+function renderPreview() {
+  document.getElementById('previewStrip').innerHTML =
+    pendingImages.map(i=>`<img src="${i.dataURL}" alt="">`).join('');
+}
+
+// ── Save ───────────────────────────────────────────────
+document.getElementById('saveBtn').onclick = () => {
+  const title = document.getElementById('inTitle').value.trim();
+  if (!title) { alert('Please enter a title.'); return; }
+  const date    = document.getElementById('inDate').value || new Date().toISOString().slice(0,10);
+  const content = document.getElementById('inContent').value.trim();
+  const tags    = extractTags(content);
+  const images  = pendingImages.map(i=>i.dataURL);
+
+  if (editingId) {
+    const idx = items.findIndex(i=>i.id===editingId);
+    if (idx!==-1) items[idx] = {...items[idx], title, date, content, tags, images};
+  } else {
+    items.unshift({id:Date.now().toString(), title, date, content, tags, images, createdAt:Date.now()});
+  }
+  save(); closeUpload(); render();
+};
+
+// ── Modal ──────────────────────────────────────────────
+function openModal(id) {
+  const item = items.find(i=>i.id===id);
+  if (!item) return;
+  currentModalId = id;
+
+  document.getElementById('modalHeaderDate').textContent = fmtDate(item.date);
+  document.getElementById('modalTitle').textContent = item.title;
+  document.getElementById('modalMeta').innerHTML =
+    `<span>${fmtDate(item.date)}</span>`+
+    (item.images&&item.images.length ? `<span>${item.images.length} image${item.images.length>1?'s':''}</span>` : '');
+  document.getElementById('modalText').innerHTML = highlightHashtags(item.content||'');
+
+  const img = document.getElementById('modalImg');
+  if (item.images&&item.images[0]) { img.src=item.images[0]; img.style.display='block'; }
+  else img.style.display='none';
+
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow='';
+  currentModalId=null;
+}
+
+document.getElementById('modalClose').onclick  = closeModal;
+document.getElementById('modalOverlay').onclick = e => {
+  if (e.target===document.getElementById('modalOverlay')) closeModal();
+};
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
+
+document.getElementById('modalEditBtn').onclick = () => {
+  const item = items.find(i=>i.id===currentModalId);
+  if (!item) return;
+  closeModal();
+  editingId = item.id;
+  document.getElementById('inTitle').value   = item.title;
+  document.getElementById('inDate').value    = item.date||'';
+  document.getElementById('inContent').value = item.content||'';
+  document.getElementById('liveTags').innerHTML =
+    (item.tags||[]).map(t=>`<span class="live-tag">${t}</span>`).join('');
+  pendingImages = (item.images||[]).map((src,i)=>({name:`img_${i}`,dataURL:src}));
+  renderPreview();
+  document.getElementById('toggleUpload').textContent = 'Editing...';
+  document.getElementById('panelHeading').textContent = 'Edit Entry';
+  document.getElementById('uploadPanel').classList.add('open');
+  window.scrollTo({top:0});
+};
+
+document.getElementById('modalDeleteBtn').onclick = () => {
+  if (!confirm('Delete this entry?')) return;
+  items = items.filter(i=>i.id!==currentModalId);
+  save(); closeModal(); render();
+};
+
+// ── Sample data ────────────────────────────────────────
+if (!items) {
+  items = [
+    { id:'s01', title:'Morning in the City', date:'2024-01-08', images:[],
+      content:'Woke up early and wandered through empty streets before the city came alive. The light at 6am is unlike anything else. #urban #photography #morning',
+      tags:['urban','photography','morning'], createdAt:1704672000000 },
+    { id:'s02', title:'Notes on Slow Reading', date:'2024-01-22', images:[],
+      content:'Started rationing myself to twenty pages a day. What I lose in speed I gain in retention and genuine pleasure. #reading #books #habit',
+      tags:['reading','books','habit'], createdAt:1705881600000 },
+    { id:'s03', title:'Winter Market', date:'2024-02-03', images:[],
+      content:'Spent the afternoon at the weekend market. Picked up old maps, a cracked ceramic bowl, and a very good jar of honey. #travel #market #winter',
+      tags:['travel','market','winter'], createdAt:1706918400000 },
+    { id:'s04', title:'Bread — Third Attempt', date:'2024-02-17', images:[],
+      content:'Still not quite right but significantly better than the last two. The crumb is open and the crust has some crackle to it. Lower hydration next time. #cooking #bread #experiment',
+      tags:['cooking','bread','experiment'], createdAt:1708128000000 },
+    { id:'s05', title:'On Finishing Projects', date:'2024-03-01', images:[],
+      content:'The hardest part is not starting but the dull slog through the middle. Momentum is a habit, not a feeling. #writing #reflection #habit',
+      tags:['writing','reflection','habit'], createdAt:1709251200000 },
+    { id:'s06', title:'Coastal Path, April', date:'2024-04-05', images:[],
+      content:'Twelve kilometers along the cliff edge. Wind straight off the Atlantic. Stopped at a bench above a cove and ate a sandwich without thinking about anything. #travel #nature #hiking',
+      tags:['travel','nature','hiking'], createdAt:1712275200000 },
+    { id:'s07', title:'Film: The Passenger (1975)', date:'2024-04-19', images:[],
+      content:'Antonioni at his most patient. The final seven-minute shot is the kind of thing that makes you reconsider what cinema can do with time and space. #film #cinema #review',
+      tags:['film','cinema','review'], createdAt:1713484800000 },
+    { id:'s08', title:'Small Garden, End of April', date:'2024-04-28', images:[],
+      content:'The sweet peas have climbed past the top of the frame. Put in three rows of radishes between the tomato seedlings. Everything moves so fast in spring. #garden #nature #spring',
+      tags:['garden','nature','spring'], createdAt:1714262400000 },
+    { id:'s09', title:'Sketching from Reference', date:'2024-05-12', images:[],
+      content:'One hour every morning with a pencil and a printed reference. The hand gets faster but the eye gets slower and more precise. That seems like the right trade. #drawing #art #practice',
+      tags:['drawing','art','practice'], createdAt:1715472000000 },
+    { id:'s10', title:'Listening: Arvo Pärt', date:'2024-05-25', images:[],
+      content:'Put on Tabula Rasa on a rainy afternoon and did not move for forty minutes. Some music demands stillness. #music #listening #ambient',
+      tags:['music','listening','ambient'], createdAt:1716595200000 },
+    { id:'s11', title:'Weekend in the Mountains', date:'2024-06-08', images:[],
+      content:'Two days at altitude with no signal. Read half a novel, cooked over a fire, slept better than I have in months. #travel #hiking #nature',
+      tags:['travel','hiking','nature'], createdAt:1717804800000 },
+    { id:'s12', title:'Trying Gouache', date:'2024-06-22', images:[],
+      content:'Switched from watercolor for a month to see how it changes my approach. Gouache is more forgiving and more immediately satisfying. I am not sure that is a good thing. #art #painting #experiment',
+      tags:['art','painting','experiment'], createdAt:1719014400000 },
+    { id:'s13', title:'On Keeping Records', date:'2024-07-10', images:[],
+      content:'The discipline of writing things down is less about memory and more about the act of attention it requires in the moment. You see differently when you know you will have to describe it. #writing #reflection #journal',
+      tags:['writing','reflection','journal'], createdAt:1720569600000 },
+    { id:'s14', title:'Flea Market Finds', date:'2024-07-27', images:[],
+      content:'A Penguin paperback from 1962, a Japanese linen handkerchief, and a small brass compass that still works. Spent eleven euros and two hours. #market #photography #urban',
+      tags:['market','photography','urban'], createdAt:1721952000000 },
+    { id:'s15', title:'Late Summer Light', date:'2024-08-14', images:[],
+      content:'There is a particular quality to the light in August — heavy, amber, almost reluctant. Every shadow seems deliberate. Shot three rolls of film in one evening. #photography #summer #urban',
+      tags:['photography','summer','urban'], createdAt:1723593600000 },
+    { id:'s16', title:'Book: Stoner by John Williams', date:'2024-09-02', images:[],
+      content:'Read it slowly over two weeks. A quiet, devastating novel about a man whose life mostly does not work out. One of the best things I have read this year. #reading #books #review',
+      tags:['reading','books','review'], createdAt:1725235200000 },
+    { id:'s17', title:'Autumn Market', date:'2024-09-21', images:[],
+      content:'Pears, walnuts, the first blood oranges of the season. The shift in what is available at the market is the most reliable sign that a season has actually changed. #market #cooking #autumn',
+      tags:['market','cooking','autumn'], createdAt:1726876800000 },
+    { id:'s18', title:'Studio Session Notes', date:'2024-10-09', images:[],
+      content:'Spent four hours on a single sequence that will last thirty seconds in the finished piece. This is normal. This is what it takes. #music #recording #practice',
+      tags:['music','recording','practice'], createdAt:1728432000000 },
+    { id:'s19', title:'First Cold Morning', date:'2024-11-03', images:[],
+      content:'Frost on the rooftops. Made coffee and stood at the window for a while before anything else. These quiet transitions between seasons are worth paying attention to. #morning #urban #journal',
+      tags:['morning','urban','journal'], createdAt:1730592000000 },
+    { id:'s20', title:'Year-End Notes', date:'2024-12-28', images:[],
+      content:'Looking back: more made than expected, less finished than planned. A reasonable ratio. The work that matters most is the kind that outlasts the year it was started in. #reflection #writing #journal',
+      tags:['reflection','writing','journal'], createdAt:1735344000000 }
+  ];
+  save();
+}
+
+render();
+</script>
+</body>
+</html>
