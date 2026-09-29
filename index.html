@@ -32,20 +32,10 @@
     overflow-x: hidden;
   }
 
-  .layout {
-    display: flex;
-    min-height: 100vh;
-    position: relative;
-  }
+  .layout { display: flex; min-height: 100vh; position: relative; }
 
-  .main-col {
-    flex: 1;
-    min-width: 0;
-    max-width: 100vw;
-    overflow-x: hidden;
-  }
+  .main-col { flex: 1; min-width: 0; max-width: 100vw; overflow-x: hidden; }
 
-  /* ── Resize handle ── */
   .resize-handle {
     display: none;
     position: fixed;
@@ -57,23 +47,19 @@
     background: transparent;
     transform: translateX(50%);
   }
-
   .resize-handle.visible { display: block; }
 
-  /* ── Side panel ── */
   .side-panel {
     width: 0;
     overflow: hidden;
     position: fixed;
-    top: 0;
-    right: 0;
+    top: 0; right: 0;
     height: 100vh;
     transition: width 0.35s ease;
     z-index: 50;
     display: flex;
     flex-direction: column;
   }
-
   .side-panel.open { width: 50vw; }
 
   .side-inner {
@@ -85,7 +71,6 @@
     transition: opacity 0.2s ease 0.15s;
     scrollbar-width: none;
   }
-
   .side-inner::-webkit-scrollbar { display: none; }
   .side-panel.open .side-inner { opacity: 1; }
 
@@ -95,450 +80,164 @@
     justify-content: space-between;
     margin-bottom: 20px;
   }
-
-  .side-header-num {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--muted);
-  }
-
-  .side-header-right {
-    display: flex;
-    align-items: baseline;
-    gap: 0;
-  }
-
-  .side-header-date {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--muted);
-    margin-right: 1.5em;
-  }
-
+  .side-header-num { font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+  .side-header-right { display: flex; align-items: baseline; }
+  .side-header-date { font-family: var(--font-mono); font-size: 11px; color: var(--muted); margin-right: 1.5em; }
   .side-close {
-    background: none;
-    border: none;
-    font-size: 11px;
-    font-family: var(--font-mono);
-    cursor: pointer;
-    color: var(--muted);
-    line-height: 1;
-    padding: 0;
+    background: none; border: none;
+    font-size: 11px; font-family: var(--font-mono);
+    cursor: pointer; color: var(--muted); line-height: 1; padding: 0;
   }
-
   .side-close:hover { color: var(--text); }
 
-  .side-img-strip {
-    margin-bottom: 20px;
-  }
-
-  .side-img-strip.single {
-    display: flex;
-    justify-content: center;
-  }
-
-  .side-img-strip.single img {
-    width: 50%;
-    height: auto;
-    display: block;
-  }
-
+  .side-img-strip { margin-bottom: 20px; }
+  .side-img-strip.single { display: flex; justify-content: center; }
+  .side-img-strip.single img { width: 50%; height: auto; display: block; }
   .side-img-strip.multi {
-    display: flex;
-    justify-content: center;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    gap: 8px;
-    margin-left: -28px;
-    margin-right: -28px;
-    padding-left: 28px;
-    padding-right: 28px;
+    display: flex; justify-content: center; flex-wrap: nowrap;
+    overflow-x: auto; gap: 8px;
+    margin-left: -28px; margin-right: -28px;
+    padding-left: 28px; padding-right: 28px;
     scrollbar-width: none;
   }
-
   .side-img-strip.multi::-webkit-scrollbar { display: none; }
+  .side-img-strip.multi img { flex-shrink: 0; height: 260px; width: auto; display: block; object-fit: contain; }
 
-  .side-img-strip.multi img {
-    flex-shrink: 0;
-    height: 260px;
-    width: auto;
-    display: block;
-    object-fit: contain;
-  }
-
-  .side-text {
-    font-size: 14px;
-    line-height: 1.6;
-    color: #222;
-    white-space: pre-wrap;
-  }
-
-  .side-text .ht {
-    background-color: var(--ht-color, #ffff00);
-    color: inherit;
-    cursor: pointer;
-    padding: 0 1px;
-  }
-
-  .auto-link {
-    color: inherit;
-    text-decoration: underline;
-    text-decoration-style: solid;
-    text-underline-offset: 3px;
-  }
-
+  .side-text { font-size: 14px; line-height: 1.6; color: #222; white-space: pre-wrap; }
+  .side-text .ht { background-color: var(--ht-color, #ffff00); color: inherit; cursor: pointer; padding: 0 1px; }
+  .auto-link { color: inherit; text-decoration: underline; text-decoration-style: solid; text-underline-offset: 3px; }
   .auto-link:hover { opacity: 0.7; }
-
-  .dash-item {
-    display: block;
-    padding-left: 1.2em;
-    text-indent: -1.2em;
-  }
-
-  .dash-item::before {
-    content: '— ';
-  }
+  .dash-item { display: block; padding-left: 1.2em; text-indent: -1.2em; }
+  .dash-item::before { content: '— '; }
 
   .side-footer {
-    position: fixed;
-    bottom: 24px;
-    right: 28px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    background: transparent;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s ease 0.15s;
-    z-index: 60;
+    position: fixed; bottom: 24px; right: 28px;
+    display: flex; align-items: center; gap: 16px;
+    background: transparent; opacity: 0; pointer-events: none;
+    transition: opacity 0.2s ease 0.15s; z-index: 60;
   }
+  .side-panel.open .side-footer { opacity: 1; pointer-events: auto; }
 
-  .side-panel.open .side-footer {
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  .btn-edit {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 0;
+  .btn-edit, .btn-delete {
+    font-family: var(--font-mono); font-size: 11px;
+    background: transparent; border: none; cursor: pointer; padding: 0;
     color: var(--muted);
   }
+  .btn-edit:hover, .btn-delete:hover { opacity: 0.6; }
 
-  .btn-edit:hover { opacity: 0.6; }
-
-  .btn-delete {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    color: var(--muted);
-  }
-
-  .btn-delete:hover { opacity: 0.7; }
-
-  /* ── Header ── */
   header {
     padding: 14px 24px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
   }
-
   .header-left { display: flex; flex-direction: column; gap: 2px; }
-
   .site-title {
-    font-family: var(--font-mono);
-    font-size: 14px;
-    letter-spacing: 0.08em;
-    text-decoration: none;
-    color: var(--text);
+    font-family: var(--font-mono); font-size: 14px;
+    letter-spacing: 0.08em; text-decoration: none; color: var(--text);
   }
 
   .live-clock {
-    position: fixed;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-family: var(--font-mono);
-    font-size: 14px;
-    color: blue;
-    letter-spacing: 0.08em;
-    z-index: 999;
-    pointer-events: none;
-    white-space: nowrap;
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+    font-family: var(--font-mono); font-size: 14px; color: blue;
+    letter-spacing: 0.08em; z-index: 999; pointer-events: none; white-space: nowrap;
   }
 
   .header-controls { display: flex; align-items: center; gap: 8px; }
 
-  .hdr-btn {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    padding: 5px 0;
-    border: none;
-    background: transparent;
-    color: var(--muted);
-    cursor: pointer;
-    letter-spacing: 0.03em;
-    white-space: nowrap;
-    line-height: 1;
-  }
-
-  .hdr-btn:hover, .hdr-btn.active { color: var(--text); background: transparent; }
-
-  .hdr-divider { width: 1px; height: 16px; background: var(--border); }
-
-  /* ── Fixed new button ── */
   .new-btn-fixed {
-    position: fixed;
-    bottom: 24px;
-    left: 24px;
-    z-index: 200;
-    width: 48px;
-    height: 48px;
-    cursor: pointer;
-    background: none;
-    border: none;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    position: fixed; bottom: 24px; left: 24px; z-index: 200;
+    width: 48px; height: 48px; cursor: pointer;
+    background: none; border: none; padding: 0;
+    display: flex; align-items: center; justify-content: center;
   }
-
   .new-btn-fixed:hover { opacity: 0.75; }
 
-  /* ── Tag panel ── */
-  .tag-panel {
-    overflow: visible;
-    max-height: 0;
-    background: var(--bg);
-  }
-
+  .tag-panel { overflow: visible; max-height: 0; background: var(--bg); }
   .tag-panel.open { max-height: none; }
-
   .tag-panel-inner {
     padding: 4px 24px 8px;
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    flex-wrap: wrap;
-    line-height: 1.2;
+    display: flex; align-items: flex-start; gap: 10px; flex-wrap: wrap; line-height: 1.2;
   }
-
   .tag-chip {
-    font-family: var(--font-mono);
-    font-size: 15px;
-    padding: 0 3px;
-    border: none;
-    background: #ffffff;
-    color: var(--text);
-    cursor: pointer;
-    line-height: 1.2;
+    font-family: var(--font-mono); font-size: 15px; padding: 0 3px;
+    border: none; background: #ffffff; color: var(--text); cursor: pointer; line-height: 1.2;
   }
+  .tag-chip.active { color: var(--text); }
 
-  .tag-chip.active {
-    color: var(--text);
-  }
-
-  .tag-count {
-    font-size: 8px;
-    vertical-align: super;
-    margin-left: 2px;
-    opacity: 0.75;
-  }
-
-  /* ── Upload panel ── */
   .upload-panel {
-    display: none;
-    background: #bbbbbb;
-    border-bottom: 1px solid var(--border);
-    padding: 20px 24px;
+    display: none; background: #bbbbbb;
+    border-bottom: 1px solid var(--border); padding: 20px 24px;
   }
-
   .upload-panel.open { display: block; }
-
   .upload-panel h3 {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.07em;
-    text-transform: uppercase;
-    margin-bottom: 14px;
-    font-weight: normal;
-    color: var(--muted);
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.07em;
+    text-transform: uppercase; margin-bottom: 14px; font-weight: normal; color: var(--muted);
   }
-
   .form-row { display: flex; gap: 12px; margin-bottom: 10px; flex-wrap: wrap; }
-
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    flex: 1;
-    min-width: 160px;
+  .form-group { display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 160px; }
+  .form-group label { font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+  .form-group input, .form-group textarea {
+    font-family: var(--font-sans); font-size: 13px; line-height: 1.6;
+    padding: 6px 8px; border: 1px solid var(--border);
+    background: var(--bg); color: var(--text); outline: none; resize: vertical;
   }
-
-  .form-group label {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--muted);
-  }
-
-  .form-group input,
-  .form-group textarea {
-    font-family: var(--font-sans);
-    font-size: 13px;
-    line-height: 1.6;
-    padding: 6px 8px;
-    border: 1px solid var(--border);
-    background: var(--bg);
-    color: var(--text);
-    outline: none;
-    resize: vertical;
-  }
-
-  .form-group input:focus,
-  .form-group textarea:focus { border-color: var(--accent); }
-
-  .live-tags {
-    display: flex;
-    gap: 5px;
-    flex-wrap: wrap;
-    margin-top: 6px;
-    min-height: 16px;
-  }
-
+  .form-group input:focus, .form-group textarea:focus { border-color: var(--accent); }
+  .live-tags { display: flex; gap: 5px; flex-wrap: wrap; margin-top: 6px; min-height: 16px; }
   .live-tag {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    color: var(--muted);
-    border: 1px solid var(--border);
-    padding: 1px 6px;
+    font-family: var(--font-mono); font-size: 10px; color: var(--muted);
+    border: 1px solid var(--border); padding: 1px 6px;
   }
-
   .drop-zone {
-    border: 1px dashed var(--border);
-    padding: 18px;
-    text-align: center;
-    font-family: var(--font-mono);
-    font-size: 12px;
-    color: var(--muted);
-    cursor: pointer;
-    background: var(--bg);
-    margin-bottom: 10px;
+    border: 1px dashed var(--border); padding: 18px; text-align: center;
+    font-family: var(--font-mono); font-size: 12px; color: var(--muted);
+    cursor: pointer; background: var(--bg); margin-bottom: 10px;
   }
-
   .drop-zone:hover, .drop-zone.over { border-color: var(--accent); color: var(--text); }
   .drop-zone input[type="file"] { display: none; }
-
   .preview-strip { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
-
   .form-actions { display: flex; gap: 8px; }
-
   .btn-primary {
-    font-family: var(--font-mono);
-    font-size: 12px;
-    padding: 6px 16px;
-    background: var(--accent);
-    color: #fff;
-    border: 1px solid var(--accent);
-    cursor: pointer;
+    font-family: var(--font-mono); font-size: 12px; padding: 6px 16px;
+    background: var(--accent); color: #fff; border: 1px solid var(--accent); cursor: pointer;
   }
-
   .btn-cancel {
-    font-family: var(--font-mono);
-    font-size: 12px;
-    padding: 6px 16px;
-    background: transparent;
-    color: var(--muted);
-    border: 1px solid var(--border);
-    cursor: pointer;
+    font-family: var(--font-mono); font-size: 12px; padding: 6px 16px;
+    background: transparent; color: var(--muted); border: 1px solid var(--border); cursor: pointer;
   }
-
   .btn-cancel:hover { color: var(--text); border-color: var(--text); }
+
+  .status-bar {
+    padding: 6px 24px;
+    font-family: var(--font-mono); font-size: 11px; color: var(--muted);
+    min-height: 28px;
+  }
 
   .sub-toolbar { padding: 8px 24px; }
   .count { font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
-
   main { padding: 0 24px 48px; }
-
   .archive-list { display: none; }
   .archive-list.active { display: block; }
 
   .list-item {
-    display: grid;
-    grid-template-columns: 3em 1fr auto;
-    align-items: baseline;
-    gap: 4px;
-    padding: 13px 0;
-    cursor: pointer;
-    color: inherit;
+    display: grid; grid-template-columns: 3em 1fr auto;
+    align-items: baseline; gap: 4px; padding: 13px 0; cursor: pointer; color: inherit;
   }
-
-  .list-date {
-    font-family: var(--font-mono);
-    font-size: 15px;
-    color: var(--muted);
-    white-space: nowrap;
-  }
-
-  /* when side panel is open, date overflows outside main-col and gets covered */
-  body.side-open .list-item {
-    grid-template-columns: 3em 1fr;
-    position: relative;
-  }
-
-  body.side-open .list-date {
-    position: absolute;
-    right: -999px;
-  }
-
-  .list-num {
-    font-family: var(--font-mono);
-    font-size: 15px;
-    color: var(--muted);
-    text-align: left;
-  }
-
-  .list-item:hover .list-title,
-  .list-item:hover .list-num,
-  .list-item:hover .list-date,
-  .list-item.active .list-title,
-  .list-item.active .list-num,
-  .list-item.active .list-date { color: #ffffff; }
-
+  .list-date { font-family: var(--font-mono); font-size: 15px; color: var(--muted); white-space: nowrap; }
+  body.side-open .list-item { grid-template-columns: 3em 1fr; position: relative; }
+  body.side-open .list-date { position: absolute; right: -999px; }
+  .list-num { font-family: var(--font-mono); font-size: 15px; color: var(--muted); text-align: left; }
+  .list-item:hover .list-title, .list-item:hover .list-num, .list-item:hover .list-date,
+  .list-item.active .list-title, .list-item.active .list-num, .list-item.active .list-date { color: #ffffff; }
   .list-thumb { display: none; }
-  .list-thumb-empty { display: none; }
-
   .img-tooltip {
-    position: fixed;
-    pointer-events: none;
-    z-index: 300;
-    display: none;
-    width: 140px;
-    height: auto;
+    position: fixed; pointer-events: none; z-index: 300;
+    display: none; width: 140px; height: auto;
   }
-
   .img-tooltip.visible { display: block; }
-
   .list-title { font-size: 15px; font-weight: normal; margin-bottom: 3px; }
-
-  .empty {
-    padding: 48px 0;
-    font-family: var(--font-mono);
-    font-size: 12px;
-    color: var(--muted);
-    text-align: center;
-  }
+  .empty { padding: 48px 0; font-family: var(--font-mono); font-size: 12px; color: var(--muted); text-align: center; }
 
   @media (max-width: 600px) {
     header { padding: 12px 16px; }
-    .sub-toolbar { padding: 8px 16px; }
     main { padding: 0 16px 48px; }
     .upload-panel { padding: 16px; }
     .list-item { grid-template-columns: 2em 1fr; }
@@ -554,13 +253,11 @@
 
 <div class="layout">
   <div class="main-col" id="mainCol">
-
     <header>
       <div class="header-left">
         <a class="site-title" href="#" onclick="goHome(event)">Research Journal</a>
       </div>
-      <div class="header-controls">
-      </div>
+      <div class="header-controls"></div>
     </header>
 
     <div class="tag-panel open" id="tagPanel">
@@ -597,18 +294,15 @@
       </div>
     </div>
 
-    <div class="sub-toolbar">
-      <span class="count" id="countLabel"></span>
-    </div>
+    <div class="status-bar" id="statusBar"></div>
+    <div class="sub-toolbar"><span class="count" id="countLabel"></span></div>
 
     <main>
       <div class="archive-list active" id="listView"></div>
       <div class="empty" id="emptyMsg" style="display:none">No entries found.</div>
     </main>
-
   </div>
 
-  <!-- Side panel -->
   <div class="side-panel" id="sidePanel">
     <div class="side-inner">
       <div class="side-header">
@@ -626,7 +320,6 @@
       <button class="btn-delete" id="sideDeleteBtn">Delete</button>
     </div>
   </div>
-
 </div>
 
 <div class="resize-handle" id="resizeHandle"></div>
@@ -642,14 +335,35 @@
 <img class="img-tooltip" id="imgTooltip" src="" alt="">
 <span class="live-clock" id="liveClock"></span>
 
-<script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import {
+  getFirestore, collection, addDoc, getDocs, doc,
+  updateDoc, deleteDoc, orderBy, query, serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+// ── Firebase ───────────────────────────────────────────
+const firebaseConfig = {
+  apiKey: "AIzaSyBUub6me02SkIBexEs0jhrPOybNblkQdks",
+  authDomain: "research-journal-26.firebaseapp.com",
+  projectId: "research-journal-26",
+  storageBucket: "research-journal-26.firebasestorage.app",
+  messagingSenderId: "399908342344",
+  appId: "1:399908342344:web:4626c367cc641db3e0667d"
+};
+const app = initializeApp(firebaseConfig);
+const db  = getFirestore(app);
+const COL = "entries";
+
+function setStatus(msg) {
+  document.getElementById('statusBar').textContent = msg;
+}
+
 // ── Clock ──────────────────────────────────────────────
 function updateClock() {
   const now = new Date();
   const months = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
-  const y = now.getFullYear();
-  const mo = months[now.getMonth()];
-  const d = now.getDate();
+  const y = now.getFullYear(), mo = months[now.getMonth()], d = now.getDate();
   let h = now.getHours();
   const ampm = h >= 12 ? 'PM' : 'AM';
   h = h % 12 || 12;
@@ -660,102 +374,29 @@ function updateClock() {
 updateClock();
 setInterval(updateClock, 1000);
 
-// ── Extract tags from text ─────────────────────────────
+// ── Helpers ────────────────────────────────────────────
 function extractTags(text) {
   const m = text.match(/#([a-zA-Z0-9_-]+)/g) || [];
   return [...new Set(m.map(t => t.slice(1).toLowerCase()))];
 }
 
-// ── Simple English stemmer ─────────────────────────────
 function stem(word) {
   word = word.toLowerCase();
   if (word.length < 4) return word;
-  // order matters — longer suffixes first
-  const rules = [
-    [/ies$/,  'y'],
-    [/ied$/,  'y'],
-    [/ness$/, ''],
-    [/ing$/,  ''],
-    [/ed$/,   ''],
-    [/er$/,   ''],
-    [/ly$/,   ''],
-    [/es$/,   ''],
-    [/s$/,    ''],
-  ];
+  const rules = [[/ies$/,'y'],[/ied$/,'y'],[/ness$/,''],[/ing$/,''],[/ed$/,''],[/er$/,''],[/ly$/,''],[/es$/,''],[/s$/,'']];
   for (const [re, rep] of rules) {
-    if (re.test(word)) {
-      const stemmed = word.replace(re, rep);
-      if (stemmed.length >= 3) return stemmed;
-    }
+    if (re.test(word)) { const s = word.replace(re, rep); if (s.length >= 3) return s; }
   }
   return word;
 }
 
-// ── Text rendering (links + dash lists + hashtags) ─────
-function renderContent(text) {
-  const tagMatches = text.match(/#([a-zA-Z0-9_-]+)/g) || [];
-  const tags = [...new Set(tagMatches.map(t => t.slice(1).toLowerCase()))];
-
-  const stemMap = {};
-  tags.forEach(tag => { stemMap[stem(tag)] = tag; });
-
-  // escape HTML first
-  let result = text
-    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-
-  // auto-link URLs (http/https)
-  result = result.replace(/(https?:\/\/[^\s<>"]+)/g,
-    '<a href="$1" target="_blank" rel="noopener" class="auto-link">$1</a>');
-
-  // dash list: lines starting with "- " become list items
-  result = result.split('\n').map(line => {
-    if (/^- /.test(line)) {
-      return `<span class="dash-item">${line.slice(2)}</span>`;
-    }
-    return line;
-  }).join('\n');
-
-  if (!tags.length) return result;
-
-  // first pass: replace #tag (remove # and highlight)
-  result = result.replace(/#([a-zA-Z0-9_-]+)/g, (match, word) => {
-    const matchedTag = stemMap[stem(word.toLowerCase())] || word.toLowerCase();
-    const col = getTagColor(matchedTag);
-    return `<span class="ht" style="background-color:${col}" data-tag="${matchedTag}" onclick="filterByTag('${matchedTag}')">${word}</span>`;
-  });
-
-  // second pass: highlight remaining plain words matching tag stems (skip HTML tags)
-  result = result.replace(/(<[^>]+>)|([A-Za-z]{3,})/g,
-    (match, tag, word) => {
-      if (tag) return tag;
-      const s2 = stem(word.toLowerCase());
-      const matchedTag = stemMap[s2];
-      if (matchedTag) {
-        const col = getTagColor(matchedTag);
-        return `<span class="ht" style="background-color:${col}" data-tag="${matchedTag}" onclick="filterByTag('${matchedTag}')">${word}</span>`;
-      }
-      return match;
-    });
-
-  return result;
-}
-
-// ── Session color cache (per entry, reset on refresh) ──
-const colorCache = {};
 const tagColorCache = {};
-let items          = JSON.parse(localStorage.getItem('archive_v4') || 'null');
-let activeTag   = new Set();
-let editingId      = null;
-let currentModalId = null;
-let pendingImages  = [];
-let tagPanelOpen = true;
-
-function save() {
-  try {
-    localStorage.setItem('archive_v4', JSON.stringify(items));
-  } catch(e) {
-    alert('Storage full. Please delete some entries or images to free up space.');
+function getTagColor(t) {
+  if (!tagColorCache[t]) {
+    const h = Math.floor(Math.random()*360), s = 80+Math.floor(Math.random()*20), l = 50+Math.floor(Math.random()*15);
+    tagColorCache[t] = `hsl(${h},${s}%,${l}%)`;
   }
+  return tagColorCache[t];
 }
 
 function fmtDate(iso) {
@@ -764,58 +405,131 @@ function fmtDate(iso) {
   return `${d}.${m}.${y}`;
 }
 
+function renderContent(text) {
+  const tagMatches = text.match(/#([a-zA-Z0-9_-]+)/g) || [];
+  const tags = [...new Set(tagMatches.map(t => t.slice(1).toLowerCase()))];
+  const stemMap = {};
+  tags.forEach(tag => { stemMap[stem(tag)] = tag; });
+
+  let result = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  result = result.replace(/(https?:\/\/[^\s<>"]+)/g,'<a href="$1" target="_blank" rel="noopener" class="auto-link">$1</a>');
+  result = result.split('\n').map(line => /^- /.test(line) ? `<span class="dash-item">${line.slice(2)}</span>` : line).join('\n');
+  if (!tags.length) return result;
+
+  result = result.replace(/#([a-zA-Z0-9_-]+)/g, (match, word) => {
+    const matchedTag = stemMap[stem(word.toLowerCase())] || word.toLowerCase();
+    const col = getTagColor(matchedTag);
+    return `<span class="ht" style="background-color:${col}" data-tag="${matchedTag}" onclick="filterByTag('${matchedTag}')">${word}</span>`;
+  });
+  result = result.replace(/(<[^>]+>)|([A-Za-z]{3,})/g, (match, tag, word) => {
+    if (tag) return tag;
+    const s2 = stem(word.toLowerCase());
+    const matchedTag = stemMap[s2];
+    if (matchedTag) {
+      const col = getTagColor(matchedTag);
+      return `<span class="ht" style="background-color:${col}" data-tag="${matchedTag}" onclick="filterByTag('${matchedTag}')">${word}</span>`;
+    }
+    return match;
+  });
+  return result;
+}
+
+// ── State ──────────────────────────────────────────────
+let items = [];
+let activeTag = new Set();
+let editingId = null;
+let currentModalId = null;
+let pendingImages = [];
+let sidePanelWidth = 50;
+let isResizing = false;
+let rafId = null;
+
+// ── Firestore load ─────────────────────────────────────
+async function loadItems() {
+  setStatus('Loading...');
+  try {
+    const q = query(collection(db, COL), orderBy('createdAt', 'desc'));
+    const snap = await getDocs(q);
+    items = snap.docs.map(d => ({ firestoreId: d.id, ...d.data() }));
+  } catch(e) {
+    try {
+      const snap = await getDocs(collection(db, COL));
+      items = snap.docs.map(d => ({ firestoreId: d.id, ...d.data() }));
+    } catch(e2) {
+      setStatus('Failed to load. Check your connection.');
+      return;
+    }
+  }
+  setStatus('');
+  render();
+}
+
+// ── Firestore save ─────────────────────────────────────
+async function saveItem(data) {
+  if (editingId) {
+    const item = items.find(i => i.id === editingId);
+    if (item && item.firestoreId) {
+      await updateDoc(doc(db, COL, item.firestoreId), data);
+      const idx = items.findIndex(i => i.id === editingId);
+      if (idx !== -1) items[idx] = { ...items[idx], ...data };
+    }
+  } else {
+    const newData = { ...data, createdAt: Date.now(), id: Date.now().toString() };
+    const ref = await addDoc(collection(db, COL), newData);
+    items.unshift({ firestoreId: ref.id, ...newData });
+  }
+}
+
+async function deleteItem(id) {
+  const item = items.find(i => i.id === id);
+  if (item && item.firestoreId) {
+    await deleteDoc(doc(db, COL, item.firestoreId));
+  }
+  items = items.filter(i => i.id !== id);
+}
+
+// ── Render ─────────────────────────────────────────────
 function allTags() {
   const count = {};
-  items.forEach(it => (it.tags||[]).forEach(t => {
-    count[t] = (count[t] || 0) + 1;
-  }));
+  items.forEach(it => (it.tags||[]).forEach(t => { count[t] = (count[t]||0)+1; }));
   return Object.entries(count).sort((a,b) => a[0].localeCompare(b[0]));
 }
 
 function filtered() {
   return items
-    .filter(it => {
-      if (activeTag.size === 0) return true;
-      return (it.tags||[]).some(t => activeTag.has(t));
-    })
+    .filter(it => activeTag.size === 0 || (it.tags||[]).some(t => activeTag.has(t)))
     .sort((a,b) => {
-      const dateDiff = (b.date||'').localeCompare(a.date||'');
-      if (dateDiff !== 0) return dateDiff;
-      // same date: newest on top → oldest gets lowest number
+      const dd = (b.date||'').localeCompare(a.date||'');
+      if (dd !== 0) return dd;
       return (b.createdAt||0) - (a.createdAt||0);
     });
 }
 
-// ── Render ─────────────────────────────────────────────
 function render() {
   renderTagPanel();
   const data = filtered();
   document.getElementById('countLabel').textContent = '';
-
-  const listEl  = document.getElementById('listView');
+  const listEl = document.getElementById('listView');
   const emptyEl = document.getElementById('emptyMsg');
   listEl.innerHTML = '';
-
   if (!data.length) { emptyEl.style.display='block'; return; }
   emptyEl.style.display = 'none';
 
   const allSorted = [...items].sort((a,b) => {
-    const dateDiff = (a.date||'').localeCompare(b.date||'');
-    if (dateDiff !== 0) return dateDiff;
+    const dd = (a.date||'').localeCompare(b.date||'');
+    if (dd !== 0) return dd;
     return (a.createdAt||0) - (b.createdAt||0);
   });
 
-  data.forEach((item) => {
+  data.forEach(item => {
     const title = item.title || '—';
     const num = allSorted.findIndex(i => i.id === item.id) + 1;
     const src = item.images && item.images[0];
-
     const li = document.createElement('div');
     li.className = 'list-item';
     li.dataset.id = item.id;
     if (src) li.dataset.img = src;
     li.onclick = () => openSide(item.id);
-
     li.innerHTML = `
       <div class="list-num">${num}</div>
       <div><div class="list-title">${title}</div></div>
@@ -825,38 +539,22 @@ function render() {
   });
 }
 
-function getTagColor(t) {
-  if (!tagColorCache[t]) {
-    const h = Math.floor(Math.random() * 360);
-    const s = 80 + Math.floor(Math.random() * 20);
-    const l = 50 + Math.floor(Math.random() * 15);
-    tagColorCache[t] = `hsl(${h},${s}%,${l}%)`;
-  }
-  return tagColorCache[t];
-}
-
 function renderTagPanel() {
   const inner = document.getElementById('tagPanelInner');
   inner.innerHTML = '';
-  allTags().forEach(([t, cnt]) => {
+  allTags().forEach(([t]) => {
     const chip = document.createElement('button');
     const isActive = activeTag.has(t);
     chip.className = 'tag-chip' + (isActive ? ' active' : '');
     chip.innerHTML = t;
-    if (isActive) {
-      chip.style.backgroundColor = getTagColor(t);
-      chip.style.padding = '0 3px';
-    }
-    chip.onclick = () => {
-      if (activeTag.has(t)) activeTag.delete(t);
-      else activeTag.add(t);
-      render();
-    };
+    if (isActive) { chip.style.backgroundColor = getTagColor(t); chip.style.padding = '0 3px'; }
+    chip.onclick = () => { if (activeTag.has(t)) activeTag.delete(t); else activeTag.add(t); render(); };
     inner.appendChild(chip);
   });
 }
 
-function goHome(e) {
+// ── goHome ─────────────────────────────────────────────
+window.goHome = function(e) {
   e.preventDefault();
   closeSide();
   activeTag = new Set();
@@ -864,33 +562,31 @@ function goHome(e) {
   resetForm();
   render();
   window.scrollTo({ top: 0 });
-}
+};
 
-// ── Image tooltip on hover ─────────────────────────────
+window.filterByTag = function(tag) {
+  activeTag = new Set([tag]);
+  render();
+};
+
+// ── Tooltip ────────────────────────────────────────────
 const tooltip = document.getElementById('imgTooltip');
-
 document.getElementById('listView').addEventListener('mousemove', e => {
   const li = e.target.closest('[data-img]');
   if (!li) { tooltip.classList.remove('visible'); return; }
   tooltip.src = li.dataset.img;
   tooltip.classList.add('visible');
   const offset = 16;
-  let x = e.clientX + offset;
-  let y = e.clientY + offset;
-  if (x + 140 > window.innerWidth)  x = e.clientX - 140 - offset;
+  let x = e.clientX + offset, y = e.clientY + offset;
+  if (x + 140 > window.innerWidth) x = e.clientX - 140 - offset;
   if (y + 200 > window.innerHeight) y = e.clientY - 200 - offset;
-  tooltip.style.left = x + 'px';
-  tooltip.style.top  = y + 'px';
+  tooltip.style.left = x + 'px'; tooltip.style.top = y + 'px';
 });
+document.getElementById('listView').addEventListener('mouseleave', () => tooltip.classList.remove('visible'));
 
-document.getElementById('listView').addEventListener('mouseleave', () => {
-  tooltip.classList.remove('visible');
-});
-
-// ── Entry panel ────────────────────────────────────────
+// ── Upload panel ───────────────────────────────────────
 document.getElementById('toggleUpload').onclick = () =>
   document.getElementById('uploadPanel').classList.toggle('open');
-
 document.getElementById('cancelBtn').onclick = closeUpload;
 
 function closeUpload() {
@@ -909,22 +605,17 @@ function resetForm() {
 
 document.getElementById('inContent').addEventListener('input', () => {
   const tags = extractTags(document.getElementById('inContent').value);
-  document.getElementById('liveTags').innerHTML =
-    tags.map(t=>`<span class="live-tag">${t}</span>`).join('');
+  document.getElementById('liveTags').innerHTML = tags.map(t=>`<span class="live-tag">${t}</span>`).join('');
 });
 
 // ── Image handling ─────────────────────────────────────
 const dropZone = document.getElementById('dropZone');
 const fileInput = document.getElementById('fileInput');
-dropZone.ondragover  = e => { e.preventDefault(); dropZone.classList.add('over'); };
+dropZone.ondragover = e => { e.preventDefault(); dropZone.classList.add('over'); };
 dropZone.ondragleave = () => dropZone.classList.remove('over');
-dropZone.ondrop = e => {
-  e.preventDefault(); dropZone.classList.remove('over');
-  handleFiles(e.dataTransfer.files);
-};
+dropZone.ondrop = e => { e.preventDefault(); dropZone.classList.remove('over'); handleFiles(e.dataTransfer.files); };
 fileInput.onchange = () => { handleFiles(fileInput.files); fileInput.value = ''; };
 
-// ── Image compression ──────────────────────────────────
 function compressImage(file, maxPx = 800, quality = 0.7) {
   return new Promise(resolve => {
     const reader = new FileReader();
@@ -937,27 +628,22 @@ function compressImage(file, maxPx = 800, quality = 0.7) {
           let w = img.width, h = img.height;
           if (w > maxPx || h > maxPx) {
             if (w > h) { h = Math.round(h * maxPx / w); w = maxPx; }
-            else       { w = Math.round(w * maxPx / h); h = maxPx; }
+            else { w = Math.round(w * maxPx / h); h = maxPx; }
           }
           const canvas = document.createElement('canvas');
           canvas.width = w; canvas.height = h;
           const ctx = canvas.getContext('2d');
-          const isPng = file.type === 'image/png';
-          const isGif = file.type === 'image/gif';
+          const isPng = file.type === 'image/png', isGif = file.type === 'image/gif';
           if (isPng || isGif) {
-            // preserve transparency by using PNG output
             ctx.clearRect(0, 0, w, h);
             ctx.drawImage(img, 0, 0, w, h);
             resolve(canvas.toDataURL('image/png'));
           } else {
-            ctx.fillStyle = '#ffffff';
-            ctx.fillRect(0, 0, w, h);
+            ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, w, h);
             ctx.drawImage(img, 0, 0, w, h);
             resolve(canvas.toDataURL('image/jpeg', quality));
           }
-        } catch(err) {
-          resolve(e.target.result);
-        }
+        } catch(err) { resolve(e.target.result); }
       };
       img.src = e.target.result;
     };
@@ -968,9 +654,7 @@ function compressImage(file, maxPx = 800, quality = 0.7) {
 function handleFiles(files) {
   const validFiles = [...files].filter(f => f.type.startsWith('image/'));
   Promise.all(validFiles.map(f => compressImage(f))).then(results => {
-    results.forEach((dataURL, i) => {
-      pendingImages.push({ name: validFiles[i].name, dataURL });
-    });
+    results.filter(Boolean).forEach((dataURL, i) => pendingImages.push({ name: validFiles[i].name, dataURL }));
     renderPreview();
   });
 }
@@ -981,18 +665,15 @@ function renderPreview() {
   strip.innerHTML = pendingImages.map((img, i) => `
     <div style="position:relative;display:inline-block">
       <img src="${img.dataURL}" alt="" style="width:60px;height:60px;object-fit:cover;border:1px solid var(--border);display:block">
-      <button onclick="removeImage(${i})" style="position:absolute;top:-6px;right:-6px;width:16px;height:16px;border-radius:50%;background:#111;color:#fff;border:none;cursor:pointer;font-size:10px;line-height:1.6;display:flex;align-items:center;justify-content:center;padding:0">✕</button>
+      <button onclick="removeImageAt(${i})" style="position:absolute;top:-6px;right:-6px;width:16px;height:16px;border-radius:50%;background:#111;color:#fff;border:none;cursor:pointer;font-size:10px;line-height:1.6;display:flex;align-items:center;justify-content:center;padding:0">✕</button>
     </div>
   `).join('');
 }
 
-function removeImage(i) {
-  pendingImages.splice(i, 1);
-  renderPreview();
-}
+window.removeImageAt = function(i) { pendingImages.splice(i, 1); renderPreview(); };
 
 // ── Save ───────────────────────────────────────────────
-document.getElementById('saveBtn').onclick = (e) => {
+document.getElementById('saveBtn').onclick = async (e) => {
   e.preventDefault();
   const title = document.getElementById('inTitle').value.trim();
   if (!title) { alert('Please enter a title.'); return; }
@@ -1001,133 +682,93 @@ document.getElementById('saveBtn').onclick = (e) => {
   const tags    = extractTags(content);
   const images  = pendingImages.map(i => i.dataURL);
 
-  if (editingId) {
-    const idx = items.findIndex(i=>i.id===editingId);
-    if (idx !== -1) items[idx] = {...items[idx], title, date, content, tags, images};
-  } else {
-    const h = Math.floor(Math.random() * 360);
-    const s = 15 + Math.floor(Math.random() * 25);
-    const l = 50 + Math.floor(Math.random() * 20);
-    const color = `hsl(${h},${s}%,${l}%)`;
-    const textColor = l < 55 ? '#ffffff' : '#111111';
-    items.unshift({id:Date.now().toString(), title, date, content, tags, images, color, textColor, createdAt:Date.now()});
+  setStatus('Saving...');
+  try {
+    await saveItem({ title, date, content, tags, images });
+    setStatus('Saved.');
+    setTimeout(() => setStatus(''), 2000);
+    editingId = null;
+    closeUpload();
+    render();
+  } catch(err) {
+    setStatus('Save failed. ' + err.message);
   }
-  save();
-  editingId = null;
-  closeUpload();
-  render();
 };
 
-// ── Resize side panel ──────────────────────────────────
-let sidePanelWidth = 50;
-let isResizing = false;
-let rafId = null;
-
+// ── Resize ─────────────────────────────────────────────
 function updateSidePanelWidth(vw) {
   vw = Math.max(20, Math.min(80, vw));
   sidePanelWidth = vw;
   const panel = document.getElementById('sidePanel');
-  const inner = panel.querySelector('.side-inner');
-  const mainCol = document.getElementById('mainCol');
-  const rh = document.getElementById('resizeHandle');
   panel.style.width = vw + 'vw';
-  inner.style.width = vw + 'vw';
-  mainCol.style.width = (100 - vw) + 'vw';
-  mainCol.style.maxWidth = (100 - vw) + 'vw';
-  rh.style.right = vw + 'vw';
+  panel.querySelector('.side-inner').style.width = vw + 'vw';
+  const mc = document.getElementById('mainCol');
+  mc.style.width = (100-vw) + 'vw'; mc.style.maxWidth = (100-vw) + 'vw';
+  document.getElementById('resizeHandle').style.right = vw + 'vw';
 }
 
 const resizeHandle = document.getElementById('resizeHandle');
-
 resizeHandle.addEventListener('mousedown', e => {
-  isResizing = true;
-  document.body.style.cursor = 'col-resize';
-  document.body.style.userSelect = 'none';
-  e.preventDefault();
+  isResizing = true; document.body.style.cursor = 'col-resize';
+  document.body.style.userSelect = 'none'; e.preventDefault();
 });
-
 document.addEventListener('mousemove', e => {
   if (!isResizing) return;
   if (rafId) cancelAnimationFrame(rafId);
-  rafId = requestAnimationFrame(() => {
-    const vw = ((window.innerWidth - e.clientX) / window.innerWidth) * 100;
-    updateSidePanelWidth(vw);
-  });
+  rafId = requestAnimationFrame(() => updateSidePanelWidth(((window.innerWidth - e.clientX) / window.innerWidth) * 100));
 });
-
 document.addEventListener('mouseup', () => {
   if (!isResizing) return;
-  isResizing = false;
-  rafId = null;
-  document.body.style.cursor = '';
-  document.body.style.userSelect = '';
+  isResizing = false; rafId = null;
+  document.body.style.cursor = ''; document.body.style.userSelect = '';
 });
 
 // ── Side panel ─────────────────────────────────────────
 function openSide(id) {
-  const item = items.find(i=>i.id===id);
+  const item = items.find(i => i.id === id);
   if (!item) return;
   currentModalId = id;
-
-  document.querySelectorAll('[data-id]').forEach(el => {
-    el.classList.toggle('active', el.dataset.id === id);
-  });
+  document.querySelectorAll('[data-id]').forEach(el => el.classList.toggle('active', el.dataset.id === id));
 
   const panel = document.getElementById('sidePanel');
-  panel.style.background = '#ffffff';
-  panel.style.color = '#111111';
+  panel.style.background = '#ffffff'; panel.style.color = '#111111';
 
   const allSorted = [...items].sort((a,b) => {
-    const dateDiff = (a.date||'').localeCompare(b.date||'');
-    if (dateDiff !== 0) return dateDiff;
-    return (a.createdAt||0) - (b.createdAt||0);
+    const dd = (a.date||'').localeCompare(b.date||'');
+    return dd !== 0 ? dd : (a.createdAt||0) - (b.createdAt||0);
   });
   const num = allSorted.findIndex(i => i.id === id) + 1;
 
-  document.getElementById('sideHeaderNum').innerHTML =
-    `${num}&nbsp;&nbsp;&nbsp;${item.title || '—'}`;
+  document.getElementById('sideHeaderNum').innerHTML = `${num}&nbsp;&nbsp;&nbsp;${item.title || '—'}`;
   document.getElementById('sideHeaderDate').textContent = fmtDate(item.date);
   document.getElementById('sideText').innerHTML = renderContent(item.content||'');
 
   const strip = document.getElementById('sideImgStrip');
   if (item.images && item.images.length) {
-    const cls = item.images.length === 1 ? 'single' : 'multi';
-    strip.className = `side-img-strip ${cls}`;
+    strip.className = `side-img-strip ${item.images.length === 1 ? 'single' : 'multi'}`;
     strip.innerHTML = item.images.map(src => `<img src="${src}" alt="">`).join('');
     strip.style.display = '';
   } else {
-    strip.innerHTML = '';
-    strip.style.display = 'none';
+    strip.innerHTML = ''; strip.style.display = 'none';
   }
 
   panel.classList.add('open');
   document.body.classList.add('side-open');
-  const mainCol = document.getElementById('mainCol');
-  mainCol.style.width = (100 - sidePanelWidth) + 'vw';
-  mainCol.style.maxWidth = (100 - sidePanelWidth) + 'vw';
+  const mc = document.getElementById('mainCol');
+  mc.style.width = (100-sidePanelWidth) + 'vw'; mc.style.maxWidth = (100-sidePanelWidth) + 'vw';
   panel.style.width = sidePanelWidth + 'vw';
   panel.querySelector('.side-inner').style.width = sidePanelWidth + 'vw';
   const rh = document.getElementById('resizeHandle');
-  rh.style.right = sidePanelWidth + 'vw';
-  rh.classList.add('visible');
-}
-
-function filterByTag(tag) {
-  activeTag = new Set([tag]);
-  render();
+  rh.style.right = sidePanelWidth + 'vw'; rh.classList.add('visible');
 }
 
 function closeSide() {
   const panel = document.getElementById('sidePanel');
-  panel.classList.remove('open');
-  document.body.classList.remove('side-open');
-  panel.style.width = '';
-  panel.querySelector('.side-inner').style.width = '';
-  const mainCol = document.getElementById('mainCol');
-  mainCol.style.width = '';
-  mainCol.style.maxWidth = '';
-  const rh = document.getElementById('resizeHandle');
-  rh.classList.remove('visible');
+  panel.classList.remove('open'); document.body.classList.remove('side-open');
+  panel.style.width = ''; panel.querySelector('.side-inner').style.width = '';
+  const mc = document.getElementById('mainCol');
+  mc.style.width = ''; mc.style.maxWidth = '';
+  document.getElementById('resizeHandle').classList.remove('visible');
   document.querySelectorAll('[data-id]').forEach(el => el.classList.remove('active'));
   currentModalId = null;
 }
@@ -1144,7 +785,7 @@ document.addEventListener('keydown', e => { if(e.key==='Escape') closeSide(); })
 
 document.getElementById('sideEditBtn').onclick = e => {
   e.stopPropagation();
-  const item = items.find(i=>i.id===currentModalId);
+  const item = items.find(i => i.id === currentModalId);
   if (!item) return;
   const id = item.id;
   closeSide();
@@ -1152,64 +793,27 @@ document.getElementById('sideEditBtn').onclick = e => {
   document.getElementById('inTitle').value   = item.title||'';
   document.getElementById('inDate').value    = item.date||'';
   document.getElementById('inContent').value = item.content||'';
-  document.getElementById('liveTags').innerHTML =
-    (item.tags||[]).map(t=>`<span class="live-tag">${t}</span>`).join('');
-  pendingImages = (item.images||[]).map((src, i) => ({ name: `img_${i}`, dataURL: src }));
+  document.getElementById('liveTags').innerHTML = (item.tags||[]).map(t=>`<span class="live-tag">${t}</span>`).join('');
+  pendingImages = (item.images||[]).map((src, i) => ({ name:`img_${i}`, dataURL: src }));
   renderPreview();
   document.getElementById('panelHeading').textContent = 'Edit Entry';
   document.getElementById('uploadPanel').classList.add('open');
   window.scrollTo({top:0});
 };
 
-document.getElementById('sideDeleteBtn').onclick = () => {
+document.getElementById('sideDeleteBtn').onclick = async () => {
   if (!confirm('Delete this entry?')) return;
-  items = items.filter(i=>i.id!==currentModalId);
-  save(); closeSide(); render();
+  setStatus('Deleting...');
+  try {
+    await deleteItem(currentModalId);
+    setStatus('Deleted.');
+    setTimeout(() => setStatus(''), 2000);
+    closeSide(); render();
+  } catch(err) { setStatus('Delete failed.'); }
 };
 
-// ── Sample data ────────────────────────────────────────
-// ── Recompress existing images in storage ──────────────
-function recompressStoredImages() {
-  const hasLarge = items.some(it =>
-    (it.images||[]).some(img => img.length > 200000)
-  );
-  if (!hasLarge) { render(); return; }
-
-  const recompress = (dataURL) => new Promise(resolve => {
-    const img = new Image();
-    img.onload = () => {
-      let w = img.width, h = img.height;
-      const maxPx = 800;
-      if (w > maxPx || h > maxPx) {
-        if (w > h) { h = Math.round(h * maxPx / w); w = maxPx; }
-        else       { w = Math.round(w * maxPx / h); h = maxPx; }
-      }
-      const canvas = document.createElement('canvas');
-      canvas.width = w; canvas.height = h;
-      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-      resolve(canvas.toDataURL('image/jpeg', 0.7));
-    };
-    img.onerror = () => resolve(dataURL);
-    img.src = dataURL;
-  });
-
-  Promise.all(items.map(async it => {
-    if (!(it.images||[]).length) return it;
-    const compressed = await Promise.all(it.images.map(recompress));
-    return {...it, images: compressed};
-  })).then(newItems => {
-    items = newItems;
-    save();
-    render();
-  });
-}
-
-if (!items) {
-  items = [];
-  save();
-}
-
-recompressStoredImages();
+// ── Init ───────────────────────────────────────────────
+loadItems();
 </script>
 </body>
 </html>
